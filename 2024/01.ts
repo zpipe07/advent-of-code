@@ -1,4 +1,4 @@
-const listOne = [
+export const listOne = [
   46669, 54117, 25659, 18867, 94354, 28985, 42358, 59950, 97799, 52935, 59303,
   85106, 50792, 13407, 67886, 16895, 30061, 52760, 58542, 90229, 13000, 75051,
   95703, 71514, 38533, 96889, 50570, 22045, 57193, 14748, 10514, 29334, 88964,
@@ -92,7 +92,7 @@ const listOne = [
   26293, 46658, 12043, 47464, 56275, 57840, 60040, 10256, 49049, 37768,
 ]
 
-const listTwo = [
+export const listTwo = [
   36559, 62675, 15179, 82784, 78485, 76228, 34206, 58682, 24655, 64167, 53728,
   71005, 91433, 14222, 61779, 63137, 23324, 28081, 49063, 61487, 11872, 16072,
   59610, 95236, 15786, 17973, 62950, 76693, 91433, 85022, 38767, 47840, 45642,
@@ -185,13 +185,34 @@ const listTwo = [
   75157, 64400, 97465, 61487, 85343, 55804, 74046, 83623, 73008, 76228, 67436,
   77826, 78485, 52527, 24655, 41945, 33284, 82705, 95591, 90283, 43279,
 ]
-const orderedListOne = listOne.sort((a, b) => a - b)
-const orderedListTwo = listTwo.sort((a, b) => a - b)
 
-let totalDifference = 0
+const calculateTotalDifference = (listOne: number[], listTwo: number[]) => {
+  const orderedListOne = listOne.sort((a, b) => a - b)
+  const orderedListTwo = listTwo.sort((a, b) => a - b)
+  let totalDifference = 0
 
-orderedListOne.forEach((item, index) => {
-  totalDifference += Math.abs(item - orderedListTwo[index])
-})
+  orderedListOne.forEach((item, index) => {
+    totalDifference += Math.abs(item - orderedListTwo[index])
+  })
+
+  return totalDifference
+}
+
+const totalDifference = calculateTotalDifference(listOne, listTwo)
 
 console.log({ totalDifference })
+
+const calculateSimilarityScore = (listOne: number[], listTwo: number[]) => {
+  let similarityScore = 0
+
+  listOne.forEach((item) => {
+    const occurences = listTwo.filter((value) => value === item).length
+    similarityScore += occurences * item
+  })
+
+  return similarityScore
+}
+
+const similarityScore = calculateSimilarityScore(listOne, listTwo)
+
+console.log({ similarityScore })
